@@ -1,9 +1,9 @@
 === Plugin Name ===
 Contributors: flashpixx
 Tags: spam, secure, imprint, impressum, image, latex, text, qr code
-Requires at least: 3.2
+Requires at least: 4.5
 Tested up to: 3.4.2
-Stable tag: 0.55
+Stable tag: 0.6
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=WCRMFYTNCJRAU
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.en.html
@@ -66,6 +66,9 @@ can read only by the webserver (virtual host). So you can not pass any images be
 
 == Upgrade Notice ==
 
+= 0.6 =
+Update to fix Google API OAuth Access
+
 = 0.5 =
 On this version the underlaying object-orientated structure of the plugin uses the PHP namespaces, which added in the PHP version
 5.3.0. So the plugin needs a PHP version equal or newer than PHP 5.3.0
@@ -76,11 +79,13 @@ On this version the underlaying object-orientated structure of the plugin uses t
 
 = 0.6 =
 
-* change language domain to "imagetext"
+* fix Google API OAuth token
+* upgrade to new Wordpress version
 
 = 0.55 =
 
 * fixing a syntax error
+* change language domain to "imagetext"
 
 = 0.5 =
 

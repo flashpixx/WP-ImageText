@@ -37,6 +37,10 @@ class render {
 		register_setting("fpx_imagetext_option", "fpx_imagetext_option", get_class()."::validate");
 		
         
+		add_settings_section("fpx_imagetext_option",  __("Global Option", "imagetext"),                           get_class()."::render_globalsection",              "fpx_imagetext_optionglobal");
+        add_settings_field("fpx_imagetext_apitoken",  __("Google API token", "imagetext"),                        get_class()."::render_globalapitoken",              "fpx_imagetext_optionglobal",      "fpx_imagetext_option");
+        
+        
 		add_settings_section("fpx_imagetext_option",  __("Text Options", "imagetext"),                            get_class()."::render_textsection",              "fpx_imagetext_optiontext");
 		add_settings_field("text_alttext",            __("alternate image text", "imagetext")." (alttext)",       get_class()."::render_textalttext",              "fpx_imagetext_optiontext",      "fpx_imagetext_option");
 		add_settings_field("text_bgcol",              __("background color", "imagetext")." (backgroundcolor)",   get_class()."::render_textbgcol",                "fpx_imagetext_optiontext",      "fpx_imagetext_option");
@@ -86,6 +90,8 @@ class render {
      **/
 	static function validate($pa) {
 		$options = get_option("fpx_imagetext_option");
+        
+        $options["global"]                          = isset($pa["global_apitoken"])? $pa["global_apitoken"] : "";
 		
 		// text options
 		$options["text"]["alttext"] 				= $pa["text_alttext"];
@@ -126,6 +132,8 @@ class render {
         echo "<p>".__("The following options may also be passed as parameters to the opening tag to adjust the current formatting. If no parameters are specified in the tags, the global values are used. In parenthesis the parameter name is specified. The use is then: <strong>[imgtxt parameter=value parameter=value ...]</strong>.", "imagetext")."</p>";
 		echo "<form method=\"post\" action=\"options.php\">";
 		settings_fields("fpx_imagetext_option");
+        
+        do_settings_sections("fpx_imagetext_optionglobal");
 		do_settings_sections("fpx_imagetext_optiontext");
 		do_settings_sections("fpx_imagetext_optionlatex");
 		do_settings_sections("fpx_imagetext_optionqrcode");
@@ -134,6 +142,20 @@ class render {
 		echo "</form></div>\n";
 	}
     
+    
+    
+    
+    static function render_globalsection() {
+        echo __("This options are the global configuration settings to run the plugin", "imagetext");
+    }
+    
+    static function render_globalapitoken() {
+        $options = get_option("fpx_imagetext_option");
+        $options["global"]["apitoken"] = isset($options["global"]["apitoken"])? $options["global"]["apitoken"] : "";
+        echo "<input name=\"fpx_imagetext_option[global_apitoken]\" size=\"10\" type=\"text\" value=\"".$options["global"]["apitoken"]."\" />";
+    }
+    
+
     
     
     static function render_textsection() {
